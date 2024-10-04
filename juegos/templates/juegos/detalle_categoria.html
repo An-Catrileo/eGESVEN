@@ -1,0 +1,45 @@
+{% extends "juegos/base_generic.html" %}
+{% load static %}
+
+{% block content %}
+<main class="row p-5">
+    <h1>{{categoria.nombre}}</h1>
+    <div class="row justify-content-center">
+        {% for juego in juegos %}
+            <div class="col-sm-3 col-12">
+                <a href="{% url 'detalle_juego' juego.id %}" class="game-card-link">
+                    <div class="game-card">
+                        <img src="{{ juego.thumbnail }}" alt="The Forest">
+                        <h3>{{ juego.title }}</h3>
+                        <p>{{ juego.precio }} CLP</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+</main>
+
+{% endblock %}
+
+<!-----<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Primero</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+    
+    <span class="current">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+    </span>
+    
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+
+{% endblock %}
