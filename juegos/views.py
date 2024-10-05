@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from .models import Producto, Categoria
 from .forms import ProductoForm
 from django.http import HttpResponse
-from .serializers import ProductoSerializer
+from .serializers import CategoriaSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status, viewsets
@@ -50,9 +50,9 @@ def detalle_categoria(request, pk):
 
 
 # ViewSet para el modelo Producto
-class ProductoViewSet(viewsets.ModelViewSet):
-    queryset = Producto.objects.all()  # Recuperar todos los productos de la base de datos
-    serializer_class = ProductoSerializer  # Usar el serializador definido para Producto
+class CategoriaViewSet(viewsets.ModelViewSet):
+    queryset = Categoria.objects.all()  # Recuperar todos los productos de la base de datos
+    serializer_class = CategoriaSerializer  # Usar el serializador definido para Producto
     permission_classes = [IsAuthenticated]  # Requiere que el usuario esté autenticado para acceder
 
 
@@ -231,20 +231,20 @@ def actualizar_cantidad_carrito(request, producto_id):
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])  # Requiere que el usuario esté autenticado
-def productos_api(request, pk=None):
-    # GET - Listar productos o obtener uno en específico
+def categorias_api(request, pk=None):
+    # GET - Listar categorias o obtener uno en específico
     if request.method == 'GET':
         if pk:
-            producto = get_object_or_404(Producto, pk=pk)
-            serializer = ProductoSerializer(producto)
+            categoria = get_object_or_404(Categoria, pk=pk)
+            serializer = CategoriaSerializer(categoria)
         else:
-            productos = Producto.objects.all()
-            serializer = ProductoSerializer(productos, many=True)
+            categorias = Categoria.objects.all()
+            serializer = CategoriaSerializer(categorias, many=True)
         return Response(serializer.data)
     
     # POST - Crear un nuevo producto
     elif request.method == 'POST':
-        serializer = ProductoSerializer(data=request.data)
+        serializer = CategoriaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -252,17 +252,17 @@ def productos_api(request, pk=None):
     
     # PUT - Actualizar un producto existente
     elif request.method == 'PUT':
-        producto = get_object_or_404(Producto, pk=pk)
-        serializer = ProductoSerializer(producto, data=request.data)
+        categoria = get_object_or_404(Categoria, pk=pk)
+        serializer = CategoriaSerializer(categoria, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    # DELETE - Eliminar un producto
+    # DELETE - Eliminar un categoria
     elif request.method == 'DELETE':
-        producto = get_object_or_404(Producto, pk=pk)
-        producto.delete()
+        categoria = get_object_or_404(Categoria, pk=pk)
+        categoria.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

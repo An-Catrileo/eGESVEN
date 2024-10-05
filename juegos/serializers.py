@@ -1,14 +1,7 @@
 from rest_framework import serializers
-from .models import Producto
+from .models import Categoria
 
-class ProductoSerializer(serializers.ModelSerializer):
+class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Producto
-        fields = ['id', 'nombre', 'genero', 'descripcion', 'precio']#campos a incluir en la Api
-        
-        
-
-
-        
-        
-        
+        model = Categoria
+        fields = ['id', 'nombre'] #campos a incluir en la Api

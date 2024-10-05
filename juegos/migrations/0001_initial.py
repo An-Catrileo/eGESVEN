@@ -2,7 +2,32 @@
 
 from django.db import migrations, models
 
-
+def create_default_categories(apps):
+    Categoria = apps.get_model('juegos', 'Categoria')
+    if not Categoria.objects.filter(nombre='strategy').exists():
+        Categoria.objects.create(nombre='strategy')
+    if not Categoria.objects.filter(nombre='moba').exists():
+        Categoria.objects.create(nombre='moba')
+    if not Categoria.objects.filter(nombre='racing').exists():
+        Categoria.objects.create(nombre='racing')
+    if not Categoria.objects.filter(nombre='sports').exists():
+        Categoria.objects.create(nombre='sports')
+    if not Categoria.objects.filter(nombre='social').exists():
+        Categoria.objects.create(nombre='social')
+    if not Categoria.objects.filter(nombre='sandbox').exists():
+        Categoria.objects.create(nombre='sandbox')
+    if not Categoria.objects.filter(nombre='open').exists():
+        Categoria.objects.create(nombre='open')
+    if not Categoria.objects.filter(nombre='survival').exists():
+        Categoria.objects.create(nombre='survival')
+    if not Categoria.objects.filter(nombre='pvp').exists():
+        Categoria.objects.create(nombre='pvp')
+    if not Categoria.objects.filter(nombre='zombie').exists():
+        Categoria.objects.create(nombre='zombie')
+    if not Categoria.objects.filter(nombre='mmorpg').exists():
+        Categoria.objects.create(nombre='mmorpg')
+    if not Categoria.objects.filter(nombre='shooter').exists():
+        Categoria.objects.create(nombre='shooter')
 class Migration(migrations.Migration):
 
     initial = True
@@ -12,13 +37,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Producto',
+            name='Categoria',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('nombre', models.CharField(max_length=100)),
-                ('genero', models.CharField(max_length=50)),
-                ('descripcion', models.TextField()),
-                ('precio', models.DecimalField(decimal_places=2, max_digits=10)),
             ],
         ),
+        migrations.RunPython(create_default_categories),
     ]

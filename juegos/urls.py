@@ -3,7 +3,7 @@ from.import views
 from django.contrib.auth import views as auth_views
 from .views import CustomLoginView
 from rest_framework.routers import DefaultRouter
-from .views import ProductoViewSet
+from .views import CategoriaViewSet
 
 from rest_framework_simplejwt.views import(
     TokenObtainPairView,
@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import(
 
 #creamos un router que se encargara de las rutas de los viewsets
 router = DefaultRouter()
-router.register(r'productos', ProductoViewSet) #Registrar el viewset de producto
+router.register(r'categorias', CategoriaViewSet) #Registrar el viewset de categorias
 
 
 urlpatterns= [
@@ -37,8 +37,8 @@ urlpatterns= [
     path('carrito/eliminar/<int:producto_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
     path('carrito/vaciar/', views.vaciar_carrito, name='vaciar_carrito'),
     path('carrito/actualizar/<int:producto_id>/', views.actualizar_cantidad_carrito, name='actualizar_cantidad_carrito'),
-    path('api/productos/', views.productos_api, name='productos_api'),
-    path('api/productos/int:pk/', views.productos_api, name='producto_detalle'),
+    path('api/productos/', views.categorias_api, name='categorias_api'),
+    path('api/productos/int:pk/', views.categorias_api, name='categoria_detalle'),
     path('categorias-juegos/', views.listar_categorias_juegos, name='listar_categorias_juegos'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
