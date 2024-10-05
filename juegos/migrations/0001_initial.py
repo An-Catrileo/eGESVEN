@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-def create_default_categories(apps):
+def create_default_categories(apps, schema_editor):
     Categoria = apps.get_model('juegos', 'Categoria')
     if not Categoria.objects.filter(nombre='strategy').exists():
         Categoria.objects.create(nombre='strategy')
