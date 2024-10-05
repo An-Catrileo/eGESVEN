@@ -24,13 +24,13 @@ class CustomLoginView(LoginView):
     template_name = 'juegos/login.html'
 
 def detalle_juego(request, pk):
-    #juego = cache.get("detalle_juego")
+    juego = cache.get("detalle_juego")
     url = f"https://www.freetogame.com/api/game?id={pk}"
     response = requests.get(url) #realizar solicitud Get a la Api
     juego = response.json()  #convertir la respuesta a formato Json
     numero_aleatorio = random.randint(10000, 59990)
     juego['precio'] = "{:,}".format(numero_aleatorio).replace(",", ".")
-    #cache.set("detalle_juego", juego, timeout = 60*60)
+    cache.set("detalle_juego", juego, timeout = 60*60)
     return render(request, 'juegos/detalle_juego.html', {'juego': juego})
 
 def detalle_categoria(request, pk):
